@@ -123,6 +123,8 @@ jobs:
 
       - run: flutter build web --release --base-href /flutter-web-sandbox/
 
+      - run: cp build/web/index.html build/web/404.html
+
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

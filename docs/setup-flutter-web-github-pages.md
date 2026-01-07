@@ -116,7 +116,7 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: stable
+          channel: stable
 
       - run: flutter pub get
 

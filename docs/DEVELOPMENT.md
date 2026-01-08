@@ -64,25 +64,25 @@ gh pr review <PR_NUMBER> --comment --body "レビューコメント"
 gh pr view <PR_NUMBER> --json reviews
 ```
 
-**より詳細な情報を取得（レビュー、コメント、判定を含む）:**
+#### ファイルレベルのレビューコメント（suggestions含む）を取得
+コード差分に対するコメント（path/line付き）は `gh api` を使用します。
+
+一般形:
 ```bash
-gh pr view <PR_NUMBER> --json reviews,comments,reviewDecisions
+gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/comments --paginate \
+	| jq '.[] | {user: .user.login, path, line, body}'
 ```
 
-**Copilot レビューのみをフィルタリング（jq を使用）:**
+このリポジトリの例:
 ```bash
-gh pr view <PR_NUMBER> --json reviews | jq '.reviews[] | select(.author.login == "copilot")'
+gh api repos/kazweda/flutter-web-sandbox/pulls/<PR_NUMBER>/comments --paginate \
+	| jq '.[] | {user: .user.login, path, line, body}'
 ```
 
-**整形された JSON を整出力:**
-```bash
-gh pr view <PR_NUMBER> --json reviews | jq '.'
-```
-
-**レビューコメントを CSV 形式で処理:**
-```bash
-gh pr view <PR_NUMBER> --json reviews --template '{{range .reviews}}{{.author.login}}\t{{.state}}\t{{.body}}\n{{end}}'
-```
+補足:
+- `pulls/<num>/comments` はコードレビューの「行に紐づくコメント」を返します（一般的なPRコメントとは別API）。
+- `--paginate` を付けると大量コメントでも全件取得できます。
+- `jq` で `path` と `line` を含むコメントのみ抽出し、Copilotなどのユーザーでフィルタ可能です。
 
 ## 参考資料
 

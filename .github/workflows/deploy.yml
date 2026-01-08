@@ -7,7 +7,7 @@ on:
     paths-ignore:
       - '.github/**/*.md'
       - 'docs/**'
-  - '!.github/copilot-instructions.md'
+      - '!.github/copilot-instructions.md'
 
 permissions:
   contents: write

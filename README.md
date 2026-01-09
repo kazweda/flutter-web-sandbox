@@ -9,7 +9,7 @@ Flutter を使った **Web アプリ開発の検証用サンドボックス**で
 
 ## Demo
 
-https://ユーザー名.github.io/flutter-web-sandbox/
+https://<your-username>.github.io/flutter-web-sandbox/
 
 ---
 

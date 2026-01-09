@@ -1,10 +1,53 @@
-# 雛形リポジトリをコピーして新規プロジェクトとして使う手順
+# Flutter Web Sandbox
+
+Flutter を使った **Web アプリ開発の検証用サンドボックス**です。  
+現在は Flutter 標準のカウンターアプリを Web として動作させています。
+
+このリポジトリは、**Flutter Web + GitHub Pages デプロイ構成の雛形**としても利用できます。
+
+---
+
+## Demo
+
+https://ユーザー名.github.io/flutter-web-sandbox/
+
+---
+
+## Features
+
+- Flutter Web アプリ（Counter サンプル）
+- GitHub Actions による自動ビルド & GitHub Pages デプロイ
+- SPA 対応（404.html 設定済み）
+
+---
+
+## Getting Started（ローカル実行）
+
+### Prerequisites
+
+- Flutter (stable)
+- Google Chrome
+
+### Run locally
+
+```bash
+flutter pub get
+flutter run -d chrome
+```
+
+---
+
+## Use this repository as a template
+
+このリポジトリは、Flutter Web プロジェクトの雛形として利用できます。
+
+### 雛形リポジトリをコピーして新規プロジェクトとして使う手順
 （Fork せずに独立させる方法）
 
 ## 1. 元リポジトリをクローン
 
 ```bash
-git clone https://github.com/元のユーザー/flutter-web-sandbox.git
+git clone https://github.com/<original-username>/flutter-web-sandbox.git
 cd flutter-web-sandbox
 ```
 
@@ -17,6 +60,7 @@ rm -rf .git
 ```
 
 これにより、元リポジトリとの履歴・関連が完全に切れます。
+この手順を省略すると、誤って元リポジトリに push してしまう可能性があります。
 
 ---
 
@@ -41,7 +85,7 @@ git commit -m "Initial commit"
 ## 5. 新しいリモートを登録して push
 
 ```bash
-git remote add origin https://github.com/自分のユーザー名/my-shooting-game.git
+git remote add origin https://github.com/<your-username>/my-shooting-game.git
 git branch -M main
 git push -u origin main
 ```
@@ -52,7 +96,7 @@ git push -u origin main
 
 ### deploy.yml の base-href を新しいリポジトリ名に変更
 
-```yaml
+```bash
 flutter build web --release --base-href /my-shooting-game/
 ```
 
@@ -83,7 +127,7 @@ GitHub Pages にデプロイされます。
 ## 公開 URL
 
 ```
-https://自分のユーザー名.github.io/my-shooting-game/
+https://<your-username>.github.io/my-shooting-game/
 ```
 
 ---
@@ -93,27 +137,48 @@ https://自分のユーザー名.github.io/my-shooting-game/
 - `.git` を削除し忘れると、元リポジトリに push してしまう可能性があります
 - リポジトリ名を変えたら `base-href` も必ず変更してください
 
-## Optional: Rename project
+## （任意）プロジェクト名・フォルダ名の変更について
 
-This template can be used as-is, but you may want to rename it
-when starting your own project.
+このリポジトリは、そのままクローンして利用できますが、  
+**自分用のプロジェクトとして開発を進める場合は、名前を変更することをおすすめします。**
 
-### Folder name
+※ Flutter Web のみを対象とする場合、変更は必須ではありません。
+
+---
+
+### フォルダ名の変更（おすすめ）
+
+ローカルでの作業を分かりやすくするため、  
+リポジトリ名と同じフォルダ名に変更すると便利です。
+
 ```bash
+cd ..
 mv flutter-web-sandbox my-awesome-app
 cd my-awesome-app
 ```
 
-### Flutter project name (Dart package name)
-```bash
+---
+
+### Flutter プロジェクト名（Dart パッケージ名）の変更（任意）
+
+`pubspec.yaml` の `name` は Dart のパッケージ名です。  
+将来 Android / iOS に対応する予定がある場合は、変更しておくと安全です。
+
+```yaml
 # pubspec.yaml
 name: my_awesome_app
 ```
 
-After renaming, run:
+変更後は、必ず依存関係を再取得してください。
+
 ```bash
 flutter pub get
 ```
 
-> Note: Renaming is optional for Web-only projects.
-> If you plan to target Android or iOS later, renaming is recommended.
+---
+
+### 注意
+
+- Web アプリのみの場合、この変更は **必須ではありません**
+- Android / iOS に対応する予定がある場合は、早めの変更をおすすめします
+- GitHub Pages 用の `base-href` は **リポジトリ名に合わせて修正**してください
